@@ -33,27 +33,72 @@ The file follows the following format:
 See the file script for an example of the file format
 """
 #Pass it the identity matrix
+
 def parse_file( fname, points, transform, screen, color ):
     f = open(fname,'r')
     lines = f.read().splitlines()
-    print(lines)
+    #print(lines)
     index = 0
+    print(len(lines))
     while index != len(lines):
+        print(index)
+        args_used = False
         if (lines[index] == "line"):
+            args_used = True
+            args = lines[index + 1].split()
+            args[0] = int(args[0])
+            args[1] = int(args[1])
+            args[2] = int(args[2])
+            args[3] = int(args[3])
+            args[4] = int(args[4])
+            args[5] = int(args[5])
+            add_edge(points,args[0],args[1],args[2],args[3],args[4],args[5])
         if (lines[index] == "ident"):
+            ident(transform)
         if (lines[index] == "scale"):
+            args_used = True
+            args = lines[index + 1].split()
+            args[0] = int(args[0])
+            args[1] = int(args[1])
+            args[2] = int(args[2])
+            matrix_mult(make_scale(args[0],args[1],args[2]),transform)
         if (lines[index] == "translate"):
+            args_used = True
+            args = lines[index + 1].split()
+            args[0] = int(args[0])
+            args[1] = int(args[1])
+            args[2] = int(args[2])
+            matrix_mult(make_translate(args[0],args[1],args[2]),transform)
         if (lines[index] == "rotate"):
+            args_used = True
+            args = lines[index + 1].split()
+            args[1] = int(args[1])
+            if(args[0] == "x"):
+                matrix_mult(make_rotX(args[1]),transform)
+            if(args[0] == "y"):
+                matrix_mult(make_rotY(args[1]),transform)
+            if(args[0] == "z"):
+                matrix_mult(make_rotZ(args[1]),transform)
         if (lines[index] == "apply"):
+            matrix_mult(transform,points)
+            for r in range(len(points)):
+                for c in range(len(points[0])):
+                    if (isinstance(points[r][c],float)):
+                        points[r][c] = int(points[r][c])
         if (lines[index] == "display"):
+            clear_screen(screen)
+            draw_lines(points,screen,color)
+            display(screen)
         if (lines[index] == "save"):
+            args_used = True
+            args = lines[index + 1].split()
+            clear_screen(screen)
+            draw_lines(points,screen,color)
+            save_extension(screen,args[0])
         if (lines[index] == "quit"):
-            break
+            index = len(lines)
+        if (args_used):
+            index += 1
+        index += 1
+
     pass
-
-def test_parse(fname):
-    f = open(fname,'r')
-    lines = f.read().splitlines()
-    print(lines)
-
-test_parse("script")

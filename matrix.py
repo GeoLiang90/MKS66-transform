@@ -10,14 +10,14 @@ z0  z1  ... zn
 import math
 #x y z is abc
 def make_translate( x, y, z ):
-    return [[1,0,0,0],[0,1,0,0],[0,0,1,0],[a,b,c,1]]
+    return [[1,0,0,0],[0,1,0,0],[0,0,1,0],[x,y,z,1]]
 def make_scale( x, y, z ):
-    return [[a,0,0,0],[0,b,0,0],[0,0,c,0],[0,0,0,1]]
+    return [[x,0,0,0],[0,y,0,0],[0,0,z,0],[0,0,0,1]]
 
 def make_rotX( theta ):
     return[
-    [Math.cos(theta),Math.sin(theta),0,0],
-    [-(Math.sin(theta)),Math.cos(theta),0,0],
+    [math.cos(theta),math.sin(theta),0,0],
+    [-(math.sin(theta)),math.cos(theta),0,0],
     [0,0,1,0],
     [0,0,0,1]
     ]
@@ -25,16 +25,16 @@ def make_rotX( theta ):
 def make_rotY( theta ):
     return[
     [1,0,0,0],
-    [0,Math.cos(theta),Math.sin(theta),0],
-    [0,-(Math.sin(theta)),Math.cos(theta),0],
+    [0,math.cos(theta),math.sin(theta),0],
+    [0,-(math.sin(theta)),math.cos(theta),0],
     [0,0,0,1]
     ]
 
 def make_rotZ( theta ):
     return [
-    [Math.cos(theta),0,-(Math.sin(theta)),0],
+    [math.cos(theta),0,-(math.sin(theta)),0],
     [0,1,0,0],
-    [Math.sin(theta),0,Math,cos(theta),0],
+    [math.sin(theta),0,math.cos(theta),0],
     [0,0,0,1]
 
     ]
