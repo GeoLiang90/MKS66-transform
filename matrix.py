@@ -8,36 +8,38 @@ z0  z1  ... zn
 1  1        1
 """
 import math
-#x y z is abc
+
 def make_translate( x, y, z ):
     return [[1,0,0,0],[0,1,0,0],[0,0,1,0],[x,y,z,1]]
 def make_scale( x, y, z ):
+
     return [[x,0,0,0],[0,y,0,0],[0,0,z,0],[0,0,0,1]]
+
 
 def make_rotX( theta ):
     return[
-    [math.cos(theta),math.sin(theta),0,0],
-    [-(math.sin(theta)),math.cos(theta),0,0],
-    [0,0,1,0],
+    [1,0,0,0],
+    [0,math.cos(math.radians(theta)),math.sin(math.radians(theta)),0],
+    [0,-(math.sin(math.radians(theta))),math.cos(math.radians(theta)),0],
     [0,0,0,1]
     ]
 
 def make_rotY( theta ):
     return[
-    [1,0,0,0],
-    [0,math.cos(theta),math.sin(theta),0],
-    [0,-(math.sin(theta)),math.cos(theta),0],
+    [math.cos(math.radians(theta)),0,-(math.sin(math.radians(theta))),0],
+    [0,1,0,0],
+    [math.sin(math.radians(theta)),0,math.cos(math.radians(theta)),0],
     [0,0,0,1]
     ]
 
 def make_rotZ( theta ):
-    return [
-    [math.cos(theta),0,-(math.sin(theta)),0],
-    [0,1,0,0],
-    [math.sin(theta),0,math.cos(theta),0],
+    return[
+    [math.cos(math.radians(theta)),math.sin(math.radians(theta)),0,0],
+    [-(math.sin(math.radians(theta))),math.cos(math.radians(theta)),0,0],
+    [0,0,1,0],
     [0,0,0,1]
-
     ]
+
 #print the matrix such that it looks like
 #the template in the top comment
 def print_matrix( matrix ):
